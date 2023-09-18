@@ -27,50 +27,63 @@ public class Islemler {
 
 
     //2-) methodlar olusturacagiz.
+
     public void start() {
 
         int select;
 
-        do {
-            System.out.println("---DEPO UYGULAMASI--");
-            System.out.println("Lütfen yapmak istediğiniz işlemi seçiniz" +
-                    "\n 1 Ürün Tanımlama" +
-                    "\n 2 Ürün Listeleme" +
-                    "\n 3 Ürün Girişi" +
-                    "\n 4 Ürünü Rafa Koy" +
-                    "\n 5 Ürün Çıkışı" +
-                    "\n 0 Çıkış");
-            System.out.println();
-            System.out.println();
-            select = scan.nextInt();
+        try {
+            do {
+                System.out.println("---DEPO UYGULAMASI--");
+                System.out.println("Lütfen yapmak istediğiniz işlemi seçiniz" +
+                        "\n 1 Ürün Tanımlama" +
+                        "\n 2 Ürün Listeleme" +
+                        "\n 3 Ürün Girişi" +
+                        "\n 4 Ürünü Rafa Koy" +
+                        "\n 5 Ürün Çıkışı" +
+                        "\n 0 Çıkış");
+                System.out.println();
+                System.out.println();
+                select = scan.nextInt();
 
 
-            switch (select) {
-                case 1:
-                    urunTanimlama(urunTanimlama.getUrunIsmi(), urunTanimlama.getUretici(), urunTanimlama.getBirim());
-                    break;
-                case 2:
-                    urunListele();
-                    break;
-                case 3:
-                    urunGirisi(urunId);
-                    break;
-                case 4:
-                    urunuRafaKoy(urunId, urunTanimlama.getRaf());
-                    break;
-                case 5:
-                    urunCikisi(urunId);
-                    break;
-                case 0:
-                    //0 Çıkış
-                    break;
-                default:
-                    System.out.println("Yanlış Seçim yaptınız");
-                    break;
-            }
+                switch (select) {
+                    case 1:
+                        urunTanimlama(urunTanimlama.getUrunIsmi(), urunTanimlama.getUretici(), urunTanimlama.getBirim());
+                        start();
+                        break;
+                    case 2:
+                        urunListele();
+                        start();
+                        break;
+                    case 3:
+                        urunGirisi(urunId);
+                        start();
+                        break;
+                    case 4:
+                        urunuRafaKoy(urunId, urunTanimlama.getRaf());
+                        start();
+                        break;
+                    case 5:
+                        urunCikisi(urunId);
+                        start();
+                        break;
+                    case 0:
+                        //0 Çıkış
+                        break;
+                    default:
+                        System.out.println("Yanlış Seçim yaptınız");
+                        start();
+                        break;
+                }
+            } while (select != 0);
+            System.out.println("Uygulamadan Çıkılıyor");
+        } catch (Exception e) {
+            e.getMessage();
+            System.err.println("Sadece 0 ile 5 arasinda bir rakam giriniz");
 
-        } while (select != 0);
-        System.out.println("Uygulamadan Çıkılıyor");
+        }
+
 
     }
 
