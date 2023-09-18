@@ -14,6 +14,7 @@ urun adedi 0 dan az olamaz. 0 olunca urun tanimlamasi silinmesin. sadece miktari
 
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Islemler {
@@ -32,60 +33,61 @@ public class Islemler {
 
         int select;
 
-        try {
-            do {
-                System.out.println("---DEPO UYGULAMASI--");
-                System.out.println("Lütfen yapmak istediğiniz işlemi seçiniz" +
-                        "\n 1 Ürün Tanımlama" +
-                        "\n 2 Ürün Listeleme" +
-                        "\n 3 Ürün Girişi" +
-                        "\n 4 Ürünü Rafa Koy" +
-                        "\n 5 Ürün Çıkışı" +
-                        "\n 0 Çıkış");
-                System.out.println();
-                System.out.println();
+        do {
+            System.out.println("---DEPO UYGULAMASI--");
+            System.out.println("Lütfen yapmak istediğiniz işlemi seçiniz" +
+                    "\n 1 Ürün Tanımlama" +
+                    "\n 2 Ürün Listeleme" +
+                    "\n 3 Ürün Girişi" +
+                    "\n 4 Ürünü Rafa Koy" +
+                    "\n 5 Ürün Çıkışı" +
+                    "\n 0 Çıkış");
+            System.out.println();
+            System.out.println();
+
+
+            try {
                 select = scan.nextInt();
-
-
-                switch (select) {
-                    case 1:
-                        urunTanimlama(urunTanimlama.getUrunIsmi(), urunTanimlama.getUretici(), urunTanimlama.getBirim());
-                        start();
-                        break;
-                    case 2:
-                        urunListele();
-                        start();
-                        break;
-                    case 3:
-                        urunGirisi(urunId);
-                        start();
-                        break;
-                    case 4:
-                        urunuRafaKoy(urunId, urunTanimlama.getRaf());
-                        start();
-                        break;
-                    case 5:
-                        urunCikisi(urunId);
-                        start();
-                        break;
-                    case 0:
-                        //0 Çıkış
-                        break;
-                    default:
-                        System.out.println("Yanlış Seçim yaptınız");
-                        start();
-                        break;
-                }
-            } while (select != 0);
-            System.out.println("Uygulamadan Çıkılıyor");
-        } catch (Exception e) {
-            e.getMessage();
-            System.err.println("Sadece 0 ile 5 arasinda bir rakam giriniz");
-
-        }
-
+            } catch (java.util.InputMismatchException e) {
+                System.err.println("Geçersiz giriş yaptınız. Lütfen 0 ile 5 arasında rakam giriniz.");
+                scan.next();
+                select = -1;
+                continue;
+            }
+            //  String secim = scan.next().toUpperCase(Locale.ROOT);
+            switch (select) {
+                case 1:
+                    urunTanimlama(urunTanimlama.getUrunIsmi(), urunTanimlama.getUretici(), urunTanimlama.getBirim());
+                    start();
+                    break;
+                case 2:
+                    urunListele();
+                    start();
+                    break;
+                case 3:
+                    urunGirisi(urunId);
+                    start();
+                    break;
+                case 4:
+                    urunuRafaKoy(urunId, urunTanimlama.getRaf());
+                    start();
+                    break;
+                case 5:
+                    urunCikisi(urunId);
+                    start();
+                    break;
+                case 0:
+                    //0 Çıkış
+                    break;
+                default:
+                    System.out.println("Yanlış Seçim yaptınız");
+                    start();
+                    break;
+            }
+        } while (select != 0);
 
     }
+
 
     //urunTanimlama   ==>  urunun ismi, ureticisi ve birimi girilecek. id  alınacak.
 
@@ -94,11 +96,11 @@ public class Islemler {
 
         urunId++;
         System.out.println("Ürün Adını Giriniz");
-        urunIsmi = scan.next();
+        urunIsmi = scan.next().toUpperCase(Locale.ROOT);
         System.out.println("Üretici Giriniz");
-        uretici = scan.next();
+        uretici = scan.next().toUpperCase(Locale.ROOT);
         System.out.println("Ürünün Dağıtım Birimini Giriniz");
-        birim = scan.next();
+        birim = scan.next().toUpperCase(Locale.ROOT);
         UrunTanimlama yeniUrun = new UrunTanimlama(urunIsmi, uretici, 0, birim, null);
         urunlistesi.put(urunId, yeniUrun);
 
@@ -107,7 +109,6 @@ public class Islemler {
     //urunListele     ==> tanimlanan urunler listelenecek. urunun adeti ve raf numarasi tanimlama yapilmadiysa default deger gorunsun.
 
     public void urunListele() {
-
 
         System.out.printf("%-10s %-15s %-15s %-10s %-12s %-12s\n", "Ürün ID", "Ürün İsmi", "Üretici", "Miktarı", "Birimi", "Raf");
         System.out.println("--------------------------------------------------------------------------");
@@ -132,34 +133,66 @@ public class Islemler {
 
         urunListele();
         System.out.println("Lütfen Giriş yapmak istediğiniz ürünün ID'sini giriniz");
-        urunId = scan.nextInt();
-        UrunTanimlama urunTanimlama = urunlistesi.get(urunId);
-        System.out.println("Lütfen Giriş yapmak istediğiniz ürünün Miktarını giriniz");
-        int miktar = scan.nextInt();
 
-        if (miktar > 0) {
-            int yeniMiktar = urunTanimlama.getMiktar() + miktar;
-            urunTanimlama.setMiktar(yeniMiktar);
-            urunListele();
+        try {
+            urunId = scan.nextInt();
+            UrunTanimlama urunTanimlama = urunlistesi.get(urunId);
+            if (urunTanimlama != null) {
+                System.out.println("Lütfen Giriş yapmak istediğiniz ürünün Miktarını giriniz");
+                int miktar = scan.nextInt();
 
-        } else {
-            System.out.println("Ürün miktarı 0 ya da eksi olamaz");
+                if (miktar > 0) {
+                    int yeniMiktar = urunTanimlama.getMiktar() + miktar;
+                    urunTanimlama.setMiktar(yeniMiktar);
+                    urunListele();
+
+                } else {
+                    System.out.println("Ürün miktarı 0 ya da Negatif Sayı olamaz");
+                }
+
+                System.out.println();
+
+            } else {
+                System.err.println("Hatalı ID Girdizi");
+                urunGirisi(urunId);
+            }
+
+        } catch (java.util.InputMismatchException e) {
+            System.err.println("Hatalı giriş yapıldı.");
+            scan.next();
+            urunGirisi(urunId);
+            return;
         }
 
-        System.out.println();
+
     }
 
     //urunuRafaKoy    ==> listeden urunu sececegiz ve id numarasina gore urunu rafa koyacagiz.
 
     public void urunuRafaKoy(int urunId, String raf) {
         urunListele();
-        System.out.println("Lütfen rafa koymak istediğiniz ürünün ID'sini giriniz");
-        urunId = scan.nextInt();
-        UrunTanimlama urunTanimlama = urunlistesi.get(urunId);
-        System.out.println("Lütfen ürünü yerleştirmek istediğiniz Raf Numarasını giriniz");
-        raf = scan.next();
-        urunTanimlama.setRaf("Raf - " + raf);
-        urunListele();
+        System.out.println("Lütfen Rafa Koymak istediğiniz ürünün ID'sini giriniz");
+        try {
+            urunId = scan.nextInt();
+            UrunTanimlama urunTanimlama = urunlistesi.get(urunId);
+
+            if (urunTanimlama != null) {
+                System.out.println("Lütfen Ürünü yerleştirmek istediğiniz Raf Numarasını giriniz");
+                raf = scan.next();
+                urunTanimlama.setRaf("Raf- " + raf);
+                urunListele();
+            }
+        } catch (NullPointerException e) {
+            System.err.println("Hatalı ID girdizi");
+            scan.next();
+            urunuRafaKoy(urunId, urunTanimlama.getRaf());
+
+        } catch (java.util.InputMismatchException e) {
+            System.err.println("hatalı giriş");
+            scan.next(); // Hatalı girişi temizle
+            urunuRafaKoy(urunId, urunTanimlama.getRaf()); // Metodu tekrar çağır
+            return;
+        }
     }
 
 
