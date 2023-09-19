@@ -2,7 +2,7 @@ package depoUygulamasi;
 
 public class UrunTanimlama {
 
-    // 1-) burada oncelikle urunun tanimlamasi  yapilir. (6 adet fields mevcut)
+    // 1-) burada oncelikle urunun tanimlamasi  yapilir. (6 adet fields mevcut) ==>> POJO Class
 
     // urunIsmi
     // uretici
@@ -18,9 +18,6 @@ public class UrunTanimlama {
     private String raf;
 
 
-    public UrunTanimlama() {
-    }
-
     public UrunTanimlama(String urunIsmi, String uretici, int miktar, String birim, String raf) {
 
         this.urunIsmi = urunIsmi;
@@ -30,6 +27,8 @@ public class UrunTanimlama {
         this.raf = raf;
     }
 
+    public UrunTanimlama() {
+    }
 
     public String getUrunIsmi() {
         return urunIsmi;
