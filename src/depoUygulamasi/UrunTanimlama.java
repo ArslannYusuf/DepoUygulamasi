@@ -1,15 +1,14 @@
 package depoUygulamasi;
-
 public class UrunTanimlama {
 
-    // 1-) burada oncelikle urunun tanimlamasi  yapilir. (6 adet fields mevcut) ==>> POJO Class
-
-    // urunIsmi
-    // uretici
-    // miktar
-    // birim
-    // raf
-
+/*
+    1-) burada oncelikle urunun tanimlamasi  yapilir.
+    urunIsmi
+    uretici
+    miktar
+    birim ve
+    raf (5 adet fields mevcut)
+*/
 
     private String urunIsmi;
     private String uretici;
@@ -19,7 +18,6 @@ public class UrunTanimlama {
 
 
     public UrunTanimlama(String urunIsmi, String uretici, int miktar, String birim, String raf) {
-
         this.urunIsmi = urunIsmi;
         this.uretici = uretici;
         this.miktar = miktar;
@@ -28,6 +26,7 @@ public class UrunTanimlama {
     }
 
     public UrunTanimlama() {
+
     }
 
     public String getUrunIsmi() {
@@ -70,14 +69,4 @@ public class UrunTanimlama {
         this.raf = raf;
     }
 
-    @Override
-    public String toString() {
-        return "UrunTanimlama{" +
-                ", urunIsmi='" + urunIsmi + '\'' +
-                ", uretici='" + uretici + '\'' +
-                ", miktar=" + miktar +
-                ", birim='" + birim + '\'' +
-                ", raf='" + raf + '\'' +
-                '}';
-    }
 }
